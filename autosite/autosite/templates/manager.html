@@ -1,0 +1,44 @@
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'autosite/manager.css' %}">
+  <h1>Список договоров и клиентов</h1>
+  <form method="GET">
+    <input type="text" name="surname_filter" placeholder="Введите фамилию для фильтрации">
+    <button type="submit">Фильтр</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Марка автомобиля</th>
+        <th>Модель автомобиля</th>
+        <th>Госномер</th>
+        <th>Дата выдачи</th>
+        <th>Дата возврата</th>
+        <th>Арендная плата</th>
+        <th>Дата фактического возврата</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for agreement in agreements %}
+        <tr>
+          <td>{{ agreement.surname }}</td>
+          <td>{{ agreement.name }}</td>
+          <td>{{ agreement.patronymic }}</td>
+          <td>{{ agreement.car.make }}</td>
+          <td>{{ agreement.car.model }}</td>
+          <td>{{ agreement.car.license_plate }}</td>
+          <td>{{ agreement.start_date }}</td>
+          <td>{{ agreement.end_date }}</td>
+          <td>{{ agreement.rental_rate }}</td>
+          <td>{{ agreement.actual_return_date }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="11">Нет договоров с такой фамилией клиента</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
